@@ -14,7 +14,7 @@ CREATE TABLE Organizer(
     phone VARCHAR(20)
 );
 
-CREATE TABLE Event(
+CREATE TABLE Event_(
     event_id INT PRIMARY KEY,
     organizer_id INT,
     FOREIGN KEY (organizer_id) REFERENCES (Organizer.organizer_id),
@@ -28,16 +28,28 @@ CREATE TABLE Event(
     event_status ENUM('scheduled', 'ongoing', 'cancelled', 'completed')
 );
 
-CREATE TABLE (
-
+CREATE TABLE Venue(
+    venue_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    loc_address VARCHAR(200),
+    city VARCHAR(50),
+    holding_capacity INT
 );
 
-CREATE TABLE (
-
+CREATE TABLE Section(
+    section_id INT PRIMARY KEY,
+    venue_id INT,
+    FOREIGN KEY (venue_id) REFERENCES (Venue.venue_id),
+    name VARCHAR(40),
+    seating_capacity INT
 );
 
-CREATE TABLE (
-
+CREATE TABLE Seat(
+    seat_id INT PRIMARY KEY,
+    section_id INT
+    FOREIGN KEY (section_id) REFERENCES (Section.section_id),
+    seat_number VARCHAR(10),
+    row_number VARCHAR(10)
 );
 
 CREATE TABLE (
