@@ -107,8 +107,8 @@ CREATE TABLE Notif(
 
 CREATE TABLE Event_performer(
 
-)
+);
 
 CREATE TABLE Event_category(
-    
-)
+
+);
