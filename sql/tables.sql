@@ -105,10 +105,16 @@ CREATE TABLE Notif(
     notification_status ENUM('unread', 'read')
 );
 
-CREATE TABLE Event_performer(
-
+CREATE TABLE Event_Performer(
+    event_id INT,
+    FOREIGN KEY (event_id) REFERENCES (Event_.event_id),
+    performer_id INT,
+    FOREIGN KEY (performer_id) REFERENCES (Performer.performer_id)
 );
 
-CREATE TABLE Event_category(
-
+CREATE TABLE Event_Category(
+    event_id INT,
+    FOREIGN KEY (event_id) REFERENCES (Event_.event_id),
+    category_id INT,
+    FOREIGN KEY (category_id) REFERENCES (Category.category_id)
 );
