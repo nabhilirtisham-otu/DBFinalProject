@@ -95,5 +95,12 @@ CREATE TABLE Category(
 );
 
 CREATE TABLE Notif(
-    notification_id INT PRIMARY KEY
+    notification_id INT PRIMARY KEY,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES (User.user_id) ON DELETE CASCADE,
+    event_id INT,
+    FOREIGN KEY (event_id) REFERENCES (Event_.event_id) ON DELETE CASCADE,
+    notification_message TEXT,
+    date_sent TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    notification_status ENUM('unread', 'read')
 );
