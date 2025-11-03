@@ -104,3 +104,11 @@ CREATE TABLE Notif(
     date_sent TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     notification_status ENUM('unread', 'read')
 );
+
+CREATE TABLE Event_performer(
+
+)
+
+CREATE TABLE Event_category(
+    
+)
