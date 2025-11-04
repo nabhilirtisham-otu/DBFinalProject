@@ -79,7 +79,7 @@ CREATE TABLE Payment(
     payment_method ENUM('Credit', 'Debit', 'PayPal', 'Cash') NOT NULL,
     payment_amount DECIMAL(10,2) CHECK (payment_amount >= 0),
     payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    payment_status ENUM('Completed', 'Failed', 'Refunded') DEFAULT 'Completed',
+    payment_status ENUM('Completed', 'Failed', 'Refunded', 'Pending') DEFAULT 'Completed',
     FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE
 );
 

@@ -1,3 +1,18 @@
+DELETE FROM Event_Category;
+DELETE FROM Event_Performer;
+DELETE FROM Notif;
+DELETE FROM Payment;
+DELETE FROM Orders;
+DELETE FROM Ticket;
+DELETE FROM Seat;
+DELETE FROM Section;
+DELETE FROM Event_;
+DELETE FROM Organizer;
+DELETE FROM Performer;
+DELETE FROM Category;
+DELETE FROM Venue;
+DELETE FROM Users;
+
 INSERT INTO Users (users_name, email, pwd, user_role) VALUES
 ('Nabhil Irtisham', 'nabhil.irtisham@gmail.com', 'pwd123', 'Organizer'),
 ('Vlad Stetca', 'vlad.stetca@gmail.com', 'iloveromania', 'Organizer'),
@@ -119,3 +134,18 @@ INSERT INTO Event_Category (event_id, category_id) VALUES
 (5, 4),
 (6, 5),
 (7, 6);
+
+select * FROM Event_Category;
+select * FROM Event_Performer;
+select * FROM Notif;
+select * FROM Payment;
+select * FROM Orders;
+select * FROM Ticket;
+select * FROM Seat;
+select * FROM Section;
+select * FROM Event_;
+select * FROM Organizer;
+select * FROM Performer;
+select * FROM Category;
+select * FROM Venue;
+select * FROM Users;
