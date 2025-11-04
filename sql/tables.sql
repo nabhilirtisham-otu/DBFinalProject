@@ -1,6 +1,6 @@
 CREATE TABLE Users(
-    user_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_name VARCHAR(100) NOT NULL,
+    users_id INT PRIMARY KEY AUTO_INCREMENT,
+    users_name VARCHAR(100) NOT NULL,
     email VARCHAR(120) UNIQUE NOT NULL,
     pwd VARCHAR(255) NOT NULL,
     user_role ENUM('Organizer', 'Customer') NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE Users(
 
 CREATE TABLE Organizer(
     organizer_id INT PRIMARY KEY,
-    FOREIGN KEY (organizer_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (organizer_id) REFERENCES Users(users_id) ON DELETE CASCADE,
     organization_name VARCHAR(100),
     phone VARCHAR(20)
 );
@@ -49,7 +49,7 @@ CREATE TABLE Seat(
     section_id INT NOT NULL,
     FOREIGN KEY (section_id) REFERENCES Section(section_id) ON DELETE CASCADE,
     seat_number VARCHAR(10),
-    row_number VARCHAR(10)
+    row_num VARCHAR(10)
 );
 
 CREATE TABLE Ticket(
@@ -64,10 +64,10 @@ CREATE TABLE Ticket(
     UNIQUE (event_id, seat_id)
 );
 
-CREATE TABLE Order(
+CREATE TABLE Orders(
     order_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    users_id INT NOT NULL,
+    FOREIGN KEY (users_id) REFERENCES Users(users_id) ON DELETE CASCADE,
     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     order_amount DECIMAL(10,2) CHECK (order_amount >= 0),
     order_status ENUM('Pending', 'Paid', 'Refunded', 'Cancelled') DEFAULT 'Pending'
@@ -76,7 +76,7 @@ CREATE TABLE Order(
 CREATE TABLE Payment(
     payment_id INT PRIMARY KEY AUTO_INCREMENT,
     order_id INT NOT NULL UNIQUE,
-    FOREIGN KEY (order_id) REFERENCES Order(order_id) ON DELETE CASCADE,
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE,
     payment_method ENUM('Credit', 'Debit', 'PayPal', 'Cash') NOT NULL,
     payment_amount DECIMAL(10,2) CHECK (payment_amount >= 0),
     payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -97,8 +97,8 @@ CREATE TABLE Category(
 
 CREATE TABLE Notif(
     notification_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    users_id INT NOT NULL,
+    FOREIGN KEY (users_id) REFERENCES Users(users_id) ON DELETE CASCADE,
     event_id INT NOT NULL,
     FOREIGN KEY (event_id) REFERENCES Event_(event_id) ON DELETE CASCADE,
     notification_message TEXT,
