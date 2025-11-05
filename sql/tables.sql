@@ -64,6 +64,10 @@ CREATE TABLE Ticket(
     FOREIGN KEY (seat_id) REFERENCES Seat(seat_id) ON DELETE CASCADE
 );
 
+ALTER TABLE Ticket
+ADD COLUMN order_id INT NULL,
+ADD FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE SET NULL;
+
 CREATE TABLE Orders(
     order_id INT PRIMARY KEY AUTO_INCREMENT,
     users_id INT NOT NULL,
