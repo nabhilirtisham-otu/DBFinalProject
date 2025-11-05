@@ -69,7 +69,7 @@ INSERT INTO Ticket (event_id, seat_id, ticket_price, ticket_status) VALUES
 (2, 3, 75.00, 'Sold'),
 (3, 4, 60.00, 'Available'),
 (4, 5, 85.00, 'Sold'),
-(5, 6, 150.00, 'Available'),
+(5, 6, 150.00, 'Sold'),
 (6, 7, 40.00, 'Reserved');
 
 INSERT INTO Orders (users_id, order_amount, order_status) VALUES
