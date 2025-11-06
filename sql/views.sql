@@ -41,26 +41,44 @@ SELECT
 FROM Event_ e;
 
 CREATE VIEW FullEventPayments AS
-SELECT e.event_id, e.title, o.order_id, p.payment_amount, p.payment_status
+SELECT 
+    e.event_id,
+    e.title AS event_title,
+    o.order_id,
+    p.payment_amount,
+    p.payment_status
 FROM Event_ e
-LEFT JOIN Orders o ON o.users_id = e.organizer_id
+LEFT JOIN Ticket t ON e.event_id = t.event_id
+LEFT JOIN Orders o ON t.order_id = o.order_id
 LEFT JOIN Payment p ON p.order_id = o.order_id
 
 UNION
 
-SELECT e.event_id, e.title, o.order_id, p.payment_amount, p.payment_status
+SELECT 
+    e.event_id,
+    e.title AS event_title,
+    o.order_id,
+    p.payment_amount,
+    p.payment_status
 FROM Event_ e
-RIGHT JOIN Orders o ON o.users_id = e.organizer_id
+RIGHT JOIN Ticket t ON e.event_id = t.event_id
+RIGHT JOIN Orders o ON t.order_id = o.order_id
 RIGHT JOIN Payment p ON p.order_id = o.order_id;
 
 CREATE VIEW DBUsers AS
-SELECT users_name, email, user_role
+SELECT
+    users_name,
+    email,
+    user_role
 FROM Users
 WHERE user_role = 'Organizer'
 
 UNION
 
-SELECT u.users_name, u.email, u.user_role
+SELECT
+    u.users_name,
+    u.email,
+    u.user_role
 FROM Users u
 JOIN Orders o ON u.users_id = o.users_id;
 
@@ -69,11 +87,13 @@ SELECT
     o.organizer_id,
     u.users_name AS organizer_name,
     COUNT(t.ticket_id) AS total_tickets_sold,
-    SUM(t.ticket_price) AS total_revenue
+    SUM(p.payment_amount) AS total_revenue
 FROM Organizer o
 JOIN Users u ON o.organizer_id = u.users_id
 JOIN Event_ e ON e.organizer_id = o.organizer_id
 JOIN Ticket t ON t.event_id = e.event_id
+LEFT JOIN Orders ord ON t.order_id = ord.order_id
+LEFT JOIN Payment p ON p.order_id = ord.order_id
 WHERE t.ticket_status = 'Sold'
 GROUP BY o.organizer_id, u.users_name;
 

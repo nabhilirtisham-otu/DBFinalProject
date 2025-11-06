@@ -52,22 +52,6 @@ CREATE TABLE Seat(
     FOREIGN KEY (section_id) REFERENCES Section(section_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Ticket(
-    ticket_id INT PRIMARY KEY AUTO_INCREMENT,
-    event_id INT NOT NULL,
-    seat_id INT NOT NULL,
-    ticket_price DECIMAL(8,2) CHECK (ticket_price >= 0),
-    ticket_status ENUM('Available', 'Reserved', 'Sold') DEFAULT 'Available',
-    listed_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE (event_id, seat_id),
-    FOREIGN KEY (event_id) REFERENCES Event_(event_id) ON DELETE CASCADE,
-    FOREIGN KEY (seat_id) REFERENCES Seat(seat_id) ON DELETE CASCADE
-);
-
-ALTER TABLE Ticket
-ADD COLUMN order_id INT NULL,
-ADD FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE SET NULL;
-
 CREATE TABLE Orders(
     order_id INT PRIMARY KEY AUTO_INCREMENT,
     users_id INT NOT NULL,
@@ -86,6 +70,22 @@ CREATE TABLE Payment(
     payment_status ENUM('Completed', 'Failed', 'Refunded', 'Pending') DEFAULT 'Completed',
     FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE
 );
+
+CREATE TABLE Ticket(
+    ticket_id INT PRIMARY KEY AUTO_INCREMENT,
+    event_id INT NOT NULL,
+    seat_id INT NOT NULL,
+    ticket_price DECIMAL(8,2) CHECK (ticket_price >= 0),
+    ticket_status ENUM('Available', 'Reserved', 'Sold') DEFAULT 'Available',
+    listed_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (event_id, seat_id),
+    FOREIGN KEY (event_id) REFERENCES Event_(event_id) ON DELETE CASCADE,
+    FOREIGN KEY (seat_id) REFERENCES Seat(seat_id) ON DELETE CASCADE
+);
+
+ALTER TABLE Ticket
+ADD COLUMN order_id INT NULL,
+ADD FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE SET NULL;
 
 CREATE TABLE Performer(
     performer_id INT PRIMARY KEY AUTO_INCREMENT,
